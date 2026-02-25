@@ -527,6 +527,9 @@ video {
 .grid{
   display: grid;
 }
+.hidden{
+  display: none;
+}
 .aspect-square{
   aspect-ratio: 1 / 1;
 }
