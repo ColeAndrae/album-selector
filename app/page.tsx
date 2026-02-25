@@ -154,19 +154,18 @@ export default function Home() {
         // Build genre list sorted by frequency
         const genreCount: Record<string, number> = {};
         parsed.forEach((a) => {
-          const all = [
-            ...a.primary_genres.split(",").map((s) => s.trim()),
-            ...(a.secondary_genres
-              ? a.secondary_genres.split(",").map((s) => s.trim())
-              : []),
-          ];
-          all.forEach((g) => {
-            if (g) genreCount[g] = (genreCount[g] || 0) + 1;
-          });
+          a.primary_genres
+            .split(",")
+            .map((s) => s.trim())
+            .forEach((g) => {
+              if (g) genreCount[g] = (genreCount[g] || 0) + 1;
+            });
         });
-        const sortedGenres = Object.keys(genreCount).sort((a, b) =>
-          a.localeCompare(b),
-        );
+        const sortedGenres = Object.entries(genreCount)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 50)
+          .map(([g]) => g)
+          .sort((a, b) => a.localeCompare(b));
         setGenres(sortedGenres);
         setSelectedGenre(sortedGenres[0] || null);
       });
