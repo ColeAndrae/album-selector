@@ -164,9 +164,9 @@ export default function Home() {
             if (g) genreCount[g] = (genreCount[g] || 0) + 1;
           });
         });
-        const sortedGenres = Object.entries(genreCount)
-          .sort((a, b) => b[1] - a[1])
-          .map(([g]) => g);
+        const sortedGenres = Object.keys(genreCount).sort((a, b) =>
+          a.localeCompare(b),
+        );
         setGenres(sortedGenres);
         setSelectedGenre(sortedGenres[0] || null);
       });
